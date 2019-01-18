@@ -1,9 +1,0 @@
-D:\Local Repository\JsonLogger\JsonLogger\obj\Debug\JsonLogger.csproj.CoreCompileInputs.cache
-D:\Local Repository\JsonLogger\JsonLogger\bin\Debug\JsonLogger.dll
-D:\Local Repository\JsonLogger\JsonLogger\bin\Debug\JsonLogger.pdb
-D:\Local Repository\JsonLogger\JsonLogger\bin\Debug\Newtonsoft.Json.dll
-D:\Local Repository\JsonLogger\JsonLogger\bin\Debug\Newtonsoft.Json.pdb
-D:\Local Repository\JsonLogger\JsonLogger\bin\Debug\Newtonsoft.Json.xml
-D:\Local Repository\JsonLogger\JsonLogger\obj\Debug\JsonLogger.csproj.CopyComplete
-D:\Local Repository\JsonLogger\JsonLogger\obj\Debug\JsonLogger.dll
-D:\Local Repository\JsonLogger\JsonLogger\obj\Debug\JsonLogger.pdb
