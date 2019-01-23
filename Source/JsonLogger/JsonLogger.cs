@@ -71,7 +71,7 @@ namespace JsonLogger
             entry["category"] = logCategory.ToString();
             entry["dataType"] = DataType.Text.ToString();
             entry["date"] = DateTime.Now.ToShortDateString();
-            entry["time"] = DateTime.Now.TimeOfDay.ToString();
+            entry["time"] = DateTime.Now.TimeOfDay.ToString("hh\\:mm\\:ss");
 
             AppendLog(entry);
         }
@@ -86,7 +86,7 @@ namespace JsonLogger
             entry["category"] = LogCategory.Critical.ToString();
             entry["dataType"] = DataType.Exception.ToString();
             entry["date"] = DateTime.Now.ToShortDateString();
-            entry["time"] = DateTime.Now.TimeOfDay.ToString();
+            entry["time"] = DateTime.Now.TimeOfDay.ToString("hh\\:mm\\:ss");
             entry["data"] = JObject.FromObject(e);
 
             AppendLog(entry);
@@ -105,7 +105,7 @@ namespace JsonLogger
             entry["category"] = LogCategory.Critical.ToString();
             entry["dataType"] = DataType.Exception.ToString();
             entry["date"] = DateTime.Now.ToShortDateString();
-            entry["time"] = DateTime.Now.TimeOfDay.ToString();
+            entry["time"] = DateTime.Now.TimeOfDay.ToString("hh\\:mm\\:ss");
             entry["data"] = JObject.FromObject(item);
 
             AppendLog(entry);
@@ -206,6 +206,11 @@ namespace JsonLogger
 
         private static void InitializeFile(string path)
         {
+            if (!Directory.Exists(Path.GetDirectoryName(path)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+            }
+
             using (var stream = new FileStream(path, FileMode.Create, FileAccess.Write))
             {
                 stream.Write(EmptyArray_Byte, 0, EmptyArray_Byte.Length);
