@@ -328,3 +328,10 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+Source/JsonLogger/bin/Debug/
+
+Source/JsonLogger/obj/Debug/
+
+Source/JsonLoggerTest/bin/Debug/
+
+Source/JsonLoggerTest/obj/Debug/
