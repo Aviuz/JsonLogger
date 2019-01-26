@@ -1,0 +1,10 @@
+﻿==Changelog==
+1.0.2
+- changed name of methods
+- fixed object logging
+- added monitors to methods accessings files
+1.0.1
+- fixed time format
+- improved unit tests
+1.0.0
+- first version of JsonLogger

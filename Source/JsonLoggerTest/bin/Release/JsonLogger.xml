@@ -4,38 +4,48 @@
         <name>JsonLogger</name>
     </assembly>
     <members>
-        <member name="P:JsonLogger.JsonLogger.LogFilePath">
+        <member name="P:JsonLogger.JLogger.LogFilePath">
             <summary>
             Path to log file where logger stores logs
             </summary>
         </member>
-        <member name="P:JsonLogger.JsonLogger.LogJson">
+        <member name="P:JsonLogger.JLogger.LogJson">
             <summary>
             Access file to get logs as JSON array
             </summary>
         </member>
-        <member name="P:JsonLogger.JsonLogger.LogText">
+        <member name="P:JsonLogger.JLogger.LogText">
             <summary>
             Access file to get logs as plain text (formatted to JSON format)
             </summary>
         </member>
-        <member name="P:JsonLogger.JsonLogger.AutoSave">
+        <member name="P:JsonLogger.JLogger.AutoSave">
             <summary>
             If set to true all changes are immadietely saved to log file.
             Otherwise changes are saved on SaveChanges() method or when logger is disposed.
             </summary>
         </member>
-        <member name="M:JsonLogger.JsonLogger.Log(System.String,JsonLogger.LogCategory)">
+        <member name="M:JsonLogger.JLogger.#ctor(System.String)">
+            <summary>
+            Creates new Json Logger with file path specified
+            </summary>
+        </member>
+        <member name="M:JsonLogger.JLogger.Log(System.String,JsonLogger.LogCategory)">
             <summary>
             Logs single-line text with specified category
             </summary>
         </member>
-        <member name="M:JsonLogger.JsonLogger.Log(System.Exception)">
+        <member name="M:JsonLogger.JLogger.Log(System.String,System.String,JsonLogger.LogCategory)">
             <summary>
-            Logs exception with it's properties as JSON object (all exceptions are logged with 'Critical' category)
+            Logs block of text with specified category
             </summary>
         </member>
-        <member name="M:JsonLogger.JsonLogger.Log(System.String,System.Object,JsonLogger.LogCategory)">
+        <member name="M:JsonLogger.JLogger.Log(System.Exception,System.String,JsonLogger.LogCategory)">
+            <summary>
+            Logs exception with it's properties as JSON object with default 'Critical' category
+            </summary>
+        </member>
+        <member name="M:JsonLogger.JLogger.Log(System.Object,System.String,JsonLogger.LogCategory)">
             <summary>
             Logs objects with it's public properties and fields as JSON object
             </summary>
@@ -43,27 +53,22 @@
             <param name="item">Object that will be logged</param>
             <param name="logCategory">Category for entry</param>
         </member>
-        <member name="M:JsonLogger.JsonLogger.LogMessage(System.String)">
-            <summary>
-            Logs single-line text with 'Info' category
-            </summary>
-        </member>
-        <member name="M:JsonLogger.JsonLogger.LogWarning(System.String)">
+        <member name="M:JsonLogger.JLogger.Warning(System.String)">
             <summary>
             Logs single-line text with 'Warning' category
             </summary>
         </member>
-        <member name="M:JsonLogger.JsonLogger.LogError(System.String)">
+        <member name="M:JsonLogger.JLogger.Error(System.String)">
             <summary>
             Logs single-line text with 'Critical' category
             </summary>
         </member>
-        <member name="M:JsonLogger.JsonLogger.LogException(System.Exception)">
+        <member name="M:JsonLogger.JLogger.Exception(System.String,System.Exception,JsonLogger.LogCategory)">
             <summary>
             Logs exception with it's properties as JSON object (all exceptions are logged with 'Critical' category)
             </summary>
         </member>
-        <member name="M:JsonLogger.JsonLogger.LogObject(System.String,System.Object,JsonLogger.LogCategory)">
+        <member name="M:JsonLogger.JLogger.Object(System.String,System.Object,JsonLogger.LogCategory)">
             <summary>
             Logs objects with it's public properties and fields as JSON object
             </summary>
@@ -71,7 +76,7 @@
             <param name="item">Object that will be logged</param>
             <param name="logCategory">Category for entry</param>
         </member>
-        <member name="M:JsonLogger.JsonLogger.SaveChanges">
+        <member name="M:JsonLogger.JLogger.SaveChanges">
             <summary>
             Saves changes to log file (if AutoSave property is set to false, all uncommited changes are kept in memory)
             </summary>

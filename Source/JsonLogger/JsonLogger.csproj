@@ -47,13 +47,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataType.cs" />
-    <Compile Include="JsonLogger.cs" />
+    <Compile Include="JLogger.cs" />
     <Compile Include="LogCategory.cs" />
     <Compile Include="LogFileStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\changelog.txt">
+      <Link>changelog.txt</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

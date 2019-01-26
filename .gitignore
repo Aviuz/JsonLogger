@@ -335,3 +335,9 @@ Source/JsonLogger/obj/Debug/
 Source/JsonLoggerTest/bin/Debug/
 
 Source/JsonLoggerTest/obj/Debug/
+
+Source/JsonLogger/obj/Release/
+
+Source/JsonLoggerTest/bin/Release/
+
+Source/JsonLoggerTest/obj/Release/

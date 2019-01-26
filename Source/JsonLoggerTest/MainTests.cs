@@ -14,7 +14,7 @@ namespace JsonLoggerTest
         {
             CleanFile(TestFilePath);
 
-            var logger = new JsonLogger.JsonLogger(TestFilePath);
+            var logger = new JsonLogger.JLogger(TestFilePath);
             logger.SaveChanges();
 
             string contentOfFile = File.ReadAllText(TestFilePath);
@@ -28,9 +28,9 @@ namespace JsonLoggerTest
         {
             CleanFile(TestFilePath);
 
-            var logger = new JsonLogger.JsonLogger(TestFilePath);
+            var logger = new JsonLogger.JLogger(TestFilePath);
 
-            logger.LogWarning("Test warning");
+            logger.Warning("Test warning");
 
             logger.SaveChanges();
 
@@ -45,11 +45,11 @@ namespace JsonLoggerTest
         {
             CleanFile(TestFilePath);
 
-            var logger = new JsonLogger.JsonLogger(TestFilePath);
+            var logger = new JsonLogger.JLogger(TestFilePath);
 
-            logger.LogException(new NullReferenceException());
+            logger.Log(new NullReferenceException());
 
-            logger.LogWarning("Test warning");
+            logger.Warning("Test warning");
 
             logger.SaveChanges();
 
@@ -64,13 +64,13 @@ namespace JsonLoggerTest
         {
             CleanFile(TestFilePath);
 
-            var logger = new JsonLogger.JsonLogger(TestFilePath);
+            var logger = new JsonLogger.JLogger(TestFilePath);
 
-            logger.LogWarning("Test warning");
+            logger.Warning("Test warning");
 
             logger.SaveChanges();
 
-            logger.LogException(new NullReferenceException());
+            logger.Log(new NullReferenceException());
 
             logger.SaveChanges();
 
@@ -85,11 +85,11 @@ namespace JsonLoggerTest
         {
             CleanFile(TestFilePath);
 
-            var logger = new JsonLogger.JsonLogger(TestFilePath);
+            var logger = new JsonLogger.JLogger(TestFilePath);
 
             logger.SaveChanges();
 
-            logger.LogException(new NullReferenceException());
+            logger.Log(new NullReferenceException());
 
             logger.SaveChanges();
 
