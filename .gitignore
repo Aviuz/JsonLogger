@@ -341,3 +341,5 @@ Source/JsonLogger/obj/Release/
 Source/JsonLoggerTest/bin/Release/
 
 Source/JsonLoggerTest/obj/Release/
+
+*.cache
