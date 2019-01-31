@@ -36,7 +36,9 @@ namespace JsonLogger
             get
             {
                 lock (this)
-                    return ReverseOrderOfArray(JArray.Parse(File.ReadAllText(LogFilePath)));
+                {
+                    return ReverseOrderOfArray(JArray.Parse(string.Concat(File.ReadAllText(LogFilePath), logBuffer.ToString())));
+                }
             }
         }
 
@@ -244,13 +246,20 @@ namespace JsonLogger
 
         private void AppendLog(JToken entry)
         {
-            if (!isLogBufferEmpty)
-                logBuffer.Append(NextEntrySeperatorTemplate);
+            lock (logBuffer)
+            {
+                if (!isLogBufferEmpty)
+                {
+                    logBuffer.Append(NextEntrySeperatorTemplate);
+                }
 
-            logBuffer.Append(entry.ToString());
+                logBuffer.Append(entry.ToString());
+            }
 
             if (AutoSave)
+            {
                 SaveChanges();
+            }
         }
 
         private static JArray ReverseOrderOfArray(JArray array)

@@ -1,4 +1,8 @@
 ﻿==Changelog==
+1.0.3
+- improved appending logs synchronized aspect
+- improved reading logs, now reading log reads saved and un-saved records
+- lowered .NET requirements to 4.5
 1.0.2
 - changed name of methods
 - fixed object logging
