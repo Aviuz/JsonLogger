@@ -1,5 +1,0 @@
-D:\Git Repository\JsonLogger\JsonLogger\JsonLogger.dll
-D:\Git Repository\JsonLogger\Source\JsonLogger\obj\Release\JsonLogger.csproj.CoreCompileInputs.cache
-D:\Git Repository\JsonLogger\Source\JsonLogger\obj\Release\JsonLogger.dll
-D:\Git Repository\JsonLogger\JsonLogger\JsonLogger.xml
-D:\Git Repository\JsonLogger\Source\JsonLogger\obj\Release\JsonLogger.csprojAssemblyReference.cache
