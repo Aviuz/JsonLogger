@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace JsonLogger
@@ -37,7 +38,13 @@ namespace JsonLogger
             {
                 lock (this)
                 {
-                    return ReverseOrderOfArray(JArray.Parse(string.Concat(File.ReadAllText(LogFilePath), logBuffer.ToString())));
+                    if (logBuffer.Length == 0)
+                        return ReverseOrderOfArray(JArray.Parse(File.ReadAllText(LogFilePath)));
+
+                    var logsInFile = JArray.Parse(File.ReadAllText(LogFilePath));
+                    var logsInBuffer = JArray.Parse($"[{logBuffer.ToString()}]");
+
+                    return ReverseOrderOfArray(new JArray(logsInFile.Union(logsInBuffer)));
                 }
             }
         }
@@ -134,7 +141,7 @@ namespace JsonLogger
             entry["dataType"] = DataType.Object.ToString();
             entry["date"] = DateTime.Now.ToShortDateString();
             entry["time"] = DateTime.Now.TimeOfDay.ToString("hh\\:mm\\:ss");
-            entry["data"] = JObject.FromObject(item);
+            entry["data"] = FromObjectEx(item);
 
             AppendLog(entry);
         }
@@ -270,6 +277,29 @@ namespace JsonLogger
                 output.Add(array[i]);
             }
             return output;
+        }
+
+        private static JToken FromObjectEx(object item)
+        {
+            try
+            {
+                return JObject.FromObject(item);
+            }
+            catch (FormatException) { }
+
+            try
+            {
+                return JArray.FromObject(item);
+            }
+            catch (FormatException) { }
+
+            try
+            {
+                return JToken.FromObject(item);
+            }
+            catch (FormatException) { }
+
+            return null;
         }
         #endregion
 
