@@ -25,6 +25,11 @@
             Otherwise changes are saved on SaveChanges() method or when logger is disposed.
             </summary>
         </member>
+        <member name="P:JsonLogger.JLogger.FileLock">
+            <summary>
+            Object to lock on when operating on log file. Locking this object will prevent all modifications on log file.
+            </summary>
+        </member>
         <member name="M:JsonLogger.JLogger.#ctor(System.String)">
             <summary>
             Creates new Json Logger with file path specified
@@ -80,6 +85,13 @@
             <summary>
             Saves changes to log file (if AutoSave property is set to false, all uncommited changes are kept in memory)
             </summary>
+        </member>
+        <member name="M:JsonLogger.JLogger.TranferLogToFile(System.String,System.Boolean)">
+            <summary>
+            Transfers logs from current file to another in a safe way.
+            </summary>
+            <param name="filePath">target file path</param>
+            <param name="clearCurrentFile">true if current file should be purged</param>
         </member>
     </members>
 </doc>

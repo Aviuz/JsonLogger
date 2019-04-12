@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using JsonLogger.EventArguments;
+using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 using System.Linq;
@@ -16,14 +17,20 @@ namespace JsonLogger
         private static readonly byte[] EmptyArray_Byte;
         private static readonly byte[] NextEntrySeperator_Byte;
         private static readonly byte[] CloseArray_Byte;
+
+        private static int BufferSize = 128;
         #endregion
 
-        #region Private Fields
+        #region Fields
         private bool isLogBufferEmpty => logBuffer.Length == 0;
         private StringBuilder logBuffer;
         #endregion
 
-        #region Public Properties
+        #region Events
+        public event EventHandler<AutomaticTransferingEvent> CustomAutomaticTransferFileName;
+        #endregion
+
+        #region Properties
         /// <summary>
         /// Path to log file where logger stores logs
         /// </summary>
@@ -36,7 +43,7 @@ namespace JsonLogger
         {
             get
             {
-                lock (this)
+                lock (FileLock)
                 {
                     if (logBuffer.Length == 0)
                         return ReverseOrderOfArray(JArray.Parse(File.ReadAllText(LogFilePath)));
@@ -53,13 +60,24 @@ namespace JsonLogger
         /// Access file to get logs as plain text (formatted to JSON format)
         /// </summary>
         public string LogText => LogJson.ToString();
-        #endregion
+
+        /// <summary>
+        /// Object to lock on when operating on log file. Locking this object will prevent all modifications on log file.
+        /// </summary>
+        public object FileLock => this;
 
         /// <summary>
         /// If set to true all changes are immadietely saved to log file.
         /// Otherwise changes are saved on SaveChanges() method or when logger is disposed.
         /// </summary>
         public bool AutoSave { get; set; }
+
+        /// <summary>
+        /// If set to value other than zero, it will automatically transfer file to backup file when source log file exceeds specified amout of bytes.
+        /// </summary>
+        public long TriggerAutomaticTransferSize { get; set; }
+        #endregion
+
         #region Constructors
         static JLogger()
         {
@@ -175,7 +193,7 @@ namespace JsonLogger
         /// </summary>
         public void SaveChanges()
         {
-            lock (this)
+            lock (FileLock)
             {
                 var status = CheckFileQuick(LogFilePath);
 
@@ -206,6 +224,48 @@ namespace JsonLogger
                 }
 
                 logBuffer.Clear();
+            }
+
+            TryTransferLogFile();
+        }
+
+        /// <summary>
+        /// Transfers logs from current file to another in a safe way.
+        /// </summary>
+        /// <param name="filePath">target file path</param>
+        /// <param name="clearCurrentFile">true if current file should be purged</param>
+        public void TranferLogToFile(string filePath, bool clearCurrentFile = true)
+        {
+            if (filePath == LogFilePath)
+            {
+                throw new ArgumentException();
+            }
+
+            if (!Directory.Exists(Path.GetDirectoryName(filePath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+            }
+
+            lock (FileLock)
+            {
+                using (var input = new FileStream(LogFilePath, FileMode.Open, FileAccess.Read))
+                using (var output = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                {
+                    byte[] buffer = new byte[BufferSize];
+                    int bytesToWrite;
+
+                    do
+                    {
+                        bytesToWrite = input.Read(buffer, 0, BufferSize);
+                        output.Write(buffer, 0, bytesToWrite);
+                    }
+                    while (bytesToWrite > 0);
+
+                    input.Close();
+                    output.Close();
+                }
+
+                InitializeFile(LogFilePath);
             }
         }
 
@@ -301,6 +361,27 @@ namespace JsonLogger
 
             return null;
         }
+        
+        private void TryTransferLogFile()
+        {
+            if(TriggerAutomaticTransferSize > 0 && new FileInfo(LogFilePath).Length >= TriggerAutomaticTransferSize)
+            {
+                var args = new AutomaticTransferingEvent();
+                var directory = Path.GetDirectoryName(LogFilePath);
+                var fileName = string.Format("{0}.{1}.{2}", Path.GetFileNameWithoutExtension(LogFilePath), DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss"), Path.GetExtension(LogFilePath));
+                args.FilePath = Path.Combine(directory, fileName);
+                args.Cancel = File.Exists(args.FilePath);
+
+                CustomAutomaticTransferFileName?.Invoke(this, args);
+
+                if (!args.Cancel)
+                {
+                    TranferLogToFile(args.FilePath, true);
+                }
+            }
+        }
+
+
         #endregion
 
         public void Dispose()
