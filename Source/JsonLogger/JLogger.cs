@@ -380,8 +380,6 @@ namespace JsonLogger
                 }
             }
         }
-
-
         #endregion
 
         public void Dispose()
