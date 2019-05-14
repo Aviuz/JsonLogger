@@ -1,7 +1,7 @@
 ﻿==Changelog==
 1.0.4
 - fixed issue with reading unsaved changes
-- improved compatibiliy with logging objects
+- improved compatibility with logging objects
 1.0.3
 - improved appending logs synchronized aspect
 - improved reading logs, now reading log reads saved and un-saved records
