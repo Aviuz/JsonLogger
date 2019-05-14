@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 
@@ -8,6 +9,7 @@ namespace JsonLoggerTest
     public class MainTests
     {
         public const string TestFilePath = "C:/temp/JsonLoggerTestingFile.txt";
+        public const string TestFilePathSecondary = "C:/temp/JsonLoggerTestingFileSecondary.txt";
 
         [TestMethod]
         public void InitializeFile()
@@ -184,6 +186,67 @@ namespace JsonLoggerTest
             logger.Log("after saving 2");
 
             Assert.AreEqual(logger.LogJson.Count, 4);
+        }
+
+        [TestMethod]
+        public void TransferLogFile()
+        {
+            CleanFile(TestFilePath);
+            CleanFile(TestFilePathSecondary);
+
+            var logger = new JsonLogger.JLogger(TestFilePath);
+
+            logger.Warning("Test warning");
+
+            logger.SaveChanges();
+
+            logger.Log(new NullReferenceException());
+
+            logger.SaveChanges();
+
+            logger.TranferLogToFile(TestFilePathSecondary, true);
+
+            var sourceLogContent = logger.LogJson;
+            Assert.AreEqual(0, sourceLogContent.Count);
+
+            var tranferredContent = JArray.Parse(File.ReadAllText(TestFilePathSecondary));
+            Assert.AreEqual(2, tranferredContent.Count);
+
+            CleanFile(TestFilePath);
+            CleanFile(TestFilePathSecondary);
+        }
+
+        [TestMethod]
+        public void AutomaticTransferring()
+        {
+            CleanFile(TestFilePath);
+            CleanFile(TestFilePathSecondary);
+
+            var logger = new JsonLogger.JLogger(TestFilePath);
+            logger.TriggerAutomaticTransferSize = 500;
+            logger.CustomAutomaticTransferFileName += Logger_CustomAutomaticTransferFileName;
+
+            logger.Warning("Test warning");
+
+            logger.SaveChanges();
+
+            logger.Log(new NullReferenceException());
+
+            logger.SaveChanges();
+
+            var sourceLogContent = logger.LogJson;
+            Assert.AreEqual(0, sourceLogContent.Count);
+
+            var tranferredContent = JArray.Parse(File.ReadAllText(TestFilePathSecondary));
+            Assert.AreEqual(2, tranferredContent.Count);
+
+            CleanFile(TestFilePath);
+            CleanFile(TestFilePathSecondary);
+        }
+
+        private void Logger_CustomAutomaticTransferFileName(object sender, JsonLogger.EventArguments.AutomaticTransferingEvent e)
+        {
+            e.FilePath = TestFilePathSecondary;
         }
 
         private static void CleanFile(string path)

@@ -1,4 +1,6 @@
 ﻿==Changelog==
+1.0.5
+- added transfering logs with optional automatic size-based transfering
 1.0.4
 - fixed issue with reading unsaved changes
 - improved compatibility with logging objects

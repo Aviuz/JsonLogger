@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataType.cs" />
+    <Compile Include="EventArguments\AutomaticTransferingEvent.cs" />
     <Compile Include="JLogger.cs" />
     <Compile Include="LogCategory.cs" />
     <Compile Include="LogFileStatus.cs" />
