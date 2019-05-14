@@ -19,15 +19,20 @@
             Access file to get logs as plain text (formatted to JSON format)
             </summary>
         </member>
+        <member name="P:JsonLogger.JLogger.FileLock">
+            <summary>
+            Object to lock on when operating on log file. Locking this object will prevent all modifications on log file.
+            </summary>
+        </member>
         <member name="P:JsonLogger.JLogger.AutoSave">
             <summary>
             If set to true all changes are immadietely saved to log file.
             Otherwise changes are saved on SaveChanges() method or when logger is disposed.
             </summary>
         </member>
-        <member name="P:JsonLogger.JLogger.FileLock">
+        <member name="P:JsonLogger.JLogger.TriggerAutomaticTransferSize">
             <summary>
-            Object to lock on when operating on log file. Locking this object will prevent all modifications on log file.
+            If set to value other than zero, it will automatically transfer file to backup file when source log file exceeds specified amout of bytes.
             </summary>
         </member>
         <member name="M:JsonLogger.JLogger.#ctor(System.String)">
