@@ -52,8 +52,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainTests.cs" />
+    <Compile Include="FileMockUp.cs" />
+    <Compile Include="Logging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transferring.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
