@@ -1,6 +1,7 @@
 ﻿using JsonLogger.EventArguments;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -341,25 +342,22 @@ namespace JsonLogger
 
         private static JToken FromObjectEx(object item)
         {
-            try
+            if (item == null)
             {
-                return JObject.FromObject(item);
+                return null;
             }
-            catch (FormatException) { }
-
-            try
+            else if(item.GetType().IsPrimitive || item is string)
+            {
+                return JValue.FromObject(item);
+            }
+            else if(item is IEnumerable)
             {
                 return JArray.FromObject(item);
             }
-            catch (FormatException) { }
-
-            try
+            else
             {
-                return JToken.FromObject(item);
+                return JObject.FromObject(item);
             }
-            catch (FormatException) { }
-
-            return null;
         }
         
         private void TryTransferLogFile()
