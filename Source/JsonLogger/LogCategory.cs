@@ -5,5 +5,6 @@
         Critical,
         Warning,
         Info,
+        Trace
     }
 }
