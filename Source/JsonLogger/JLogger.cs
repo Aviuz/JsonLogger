@@ -133,17 +133,24 @@ namespace JsonLogger
         /// <summary>
         /// Logs exception with it's properties as JSON object with default 'Critical' category
         /// </summary>
-        public void Log(Exception e, string title = null, LogCategory logCategory = LogCategory.Critical)
+        public void Log(Exception exception, string title = null, LogCategory logCategory = LogCategory.Critical)
         {
-            var entry = new JObject();
-            entry["title"] = title == null ? e.GetType().Name : title;
-            entry["category"] = LogCategory.Critical.ToString();
-            entry["dataType"] = DataType.Exception.ToString();
-            entry["date"] = DateTime.Now.ToShortDateString();
-            entry["time"] = DateTime.Now.TimeOfDay.ToString("hh\\:mm\\:ss");
-            entry["data"] = JObject.FromObject(e);
+            try
+            {
+                var entry = new JObject();
+                entry["title"] = title == null ? exception.GetType().Name : title;
+                entry["category"] = logCategory.ToString();
+                entry["dataType"] = DataType.Exception.ToString();
+                entry["date"] = DateTime.Now.ToShortDateString();
+                entry["time"] = DateTime.Now.TimeOfDay.ToString("hh\\:mm\\:ss");
+                entry["data"] = JObject.FromObject(exception);
 
-            AppendLog(entry);
+                AppendLog(entry);
+            }
+            catch (Exception ex)
+            {
+                Log("Couldn't log exception", exception.ToString(), LogCategory.Critical);
+            }
         }
 
         /// <summary>
@@ -154,15 +161,30 @@ namespace JsonLogger
         /// <param name="logCategory">Category for entry</param>
         public void Log(object item, string title = null, LogCategory logCategory = LogCategory.Info)
         {
-            var entry = new JObject();
-            entry["title"] = title == null ? item.ToString() : title;
-            entry["category"] = logCategory.ToString();
-            entry["dataType"] = DataType.Object.ToString();
-            entry["date"] = DateTime.Now.ToShortDateString();
-            entry["time"] = DateTime.Now.TimeOfDay.ToString("hh\\:mm\\:ss");
-            entry["data"] = FromObjectEx(item);
+            try
+            {
+                var entry = new JObject();
+                entry["title"] = title == null ? item.ToString() : title;
+                entry["category"] = logCategory.ToString();
+                entry["dataType"] = DataType.Object.ToString();
+                entry["date"] = DateTime.Now.ToShortDateString();
+                entry["time"] = DateTime.Now.TimeOfDay.ToString("hh\\:mm\\:ss");
+                entry["data"] = FromObjectEx(item);
 
-            AppendLog(entry);
+                AppendLog(entry);
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    Log("Couldn't log object " + item.ToString(), LogCategory.Warning);
+                    Log(ex, "Logging exception", LogCategory.Warning);
+                }
+                catch (Exception)
+                {
+                    Log("Critical error during logging. Please report the issue at github.com/Aviuz/JsonLogger", LogCategory.Critical);
+                }
+            }
         }
 
         /// <summary>
@@ -346,11 +368,11 @@ namespace JsonLogger
             {
                 return null;
             }
-            else if(item.GetType().IsPrimitive || item is string)
+            else if (item.GetType().IsPrimitive || item is string)
             {
                 return JValue.FromObject(item);
             }
-            else if(item is IEnumerable)
+            else if (item is IEnumerable)
             {
                 return JArray.FromObject(item);
             }
@@ -359,10 +381,10 @@ namespace JsonLogger
                 return JObject.FromObject(item);
             }
         }
-        
+
         private void TryTransferLogFile()
         {
-            if(TriggerAutomaticTransferSize > 0 && new FileInfo(LogFilePath).Length >= TriggerAutomaticTransferSize)
+            if (TriggerAutomaticTransferSize > 0 && new FileInfo(LogFilePath).Length >= TriggerAutomaticTransferSize)
             {
                 var args = new AutomaticTransferingEvent();
                 var directory = Path.GetDirectoryName(LogFilePath);
