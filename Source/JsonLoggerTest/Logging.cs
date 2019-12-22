@@ -238,5 +238,63 @@ namespace JsonLoggerTest
 
             FileMockUp.CleanFile(FileMockUp.TestFilePath);
         }
+
+        [TestMethod]
+        public void LogDouble()
+        {
+            FileMockUp.CleanFile(FileMockUp.TestFilePath);
+
+            var logger = new JsonLogger.JLogger(FileMockUp.TestFilePath);
+
+            double val = 0.3;
+
+            logger.Log(val);
+
+            logger.SaveChanges();
+
+            var contentOfFile = logger.LogJson;
+            Assert.AreEqual(1, contentOfFile.Count);
+
+            FileMockUp.CleanFile(FileMockUp.TestFilePath);
+        }
+
+        [TestMethod]
+        public void LogBool()
+        {
+            FileMockUp.CleanFile(FileMockUp.TestFilePath);
+
+            var logger = new JsonLogger.JLogger(FileMockUp.TestFilePath);
+
+            bool val = true;
+
+            logger.Log(val);
+
+            logger.SaveChanges();
+
+            var contentOfFile = logger.LogJson;
+            Assert.AreEqual(1, contentOfFile.Count);
+
+            FileMockUp.CleanFile(FileMockUp.TestFilePath);
+        }
+
+        [TestMethod]
+        public void LogRecursive()
+        {
+            FileMockUp.CleanFile(FileMockUp.TestFilePath);
+
+            var logger = new JsonLogger.JLogger(FileMockUp.TestFilePath);
+
+            var list = new List<object>();
+            list.Add(list);
+
+            logger.Log(list);
+
+            logger.SaveChanges();
+
+            var contentOfFile = logger.LogJson;
+            Assert.AreEqual(2, contentOfFile.Count);
+
+            FileMockUp.CleanFile(FileMockUp.TestFilePath);
+        }
     }
 }
