@@ -1,4 +1,9 @@
 ﻿==Changelog==
+1.0.7
+- added failover behaviour for logging unserializable objects
+1.0.6
+- fixed object logging for primitives
+- fixed object logging for arrays
 1.0.5
 - added transfering logs with optional automatic size-based transfering
 1.0.4
