@@ -1,4 +1,6 @@
-# JsonLogger 
+<p align="center">
+    <img src="https://raw.githubusercontent.com/Aviuz/JsonLogger/master/Design/Logo.png" alt="JsonLogger" />
+</p>
 ## Overview
 .NET Library for object logging to json files. This library provides interface to log text messages, .NET Objects and Exceptions to file in JSON format.  
 THis is very basic library with some additional features.
