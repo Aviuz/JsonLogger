@@ -1,4 +1,7 @@
 ﻿==Changelog==
+1.0.8
+- fixed bug with empty directiories
+- fixed bug with cross-thread read access denied
 1.0.7
 - added failover behaviour for logging unserializable objects
 1.0.6

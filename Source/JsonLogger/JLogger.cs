@@ -4,7 +4,9 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace JsonLogger
 {
@@ -212,7 +214,13 @@ namespace JsonLogger
         #endregion
 
         /// <summary>
-        /// Saves changes to log file (if AutoSave property is set to false, all uncommited changes are kept in memory)
+        /// Save changes to log file asynchronously (if AutoSave property is set to false, all uncommitted changes are kept in memory)
+        /// </summary>
+        /// <returns></returns>
+        public Task SaveChangesAsync() => Task.Run(SaveChanges);
+
+        /// <summary>
+        /// Saves changes to log file (if AutoSave property is set to false, all uncommitted changes are kept in memory)
         /// </summary>
         public void SaveChanges()
         {
@@ -230,7 +238,7 @@ namespace JsonLogger
 
                 byte[] buffer = Encoding.UTF8.GetBytes(logBuffer.ToString());
 
-                using (var stream = new FileStream(LogFilePath, FileMode.Open, FileAccess.ReadWrite))
+                using (var stream = new FileStream(LogFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Read))
                 {
                     if (status == LogFileStatus.OnePlusEntry)
                     {
@@ -251,6 +259,13 @@ namespace JsonLogger
 
             TryTransferLogFile();
         }
+
+        /// <summary>
+        /// Transfers logs asynchronously from current file to another in a safe way.
+        /// </summary>
+        /// <param name="filePath">target file path</param>
+        /// <param name="clearCurrentFile">true if current file should be purged</param>
+        public Task TransferLogToFileAsync(string filePath, bool clearCurrentFile = true) => Task.Run(() => TranferLogToFile(filePath, clearCurrentFile));
 
         /// <summary>
         /// Transfers logs from current file to another in a safe way.
@@ -322,7 +337,7 @@ namespace JsonLogger
 
         private static void InitializeFile(string path)
         {
-            if (!Directory.Exists(Path.GetDirectoryName(path)))
+            if (!string.IsNullOrWhiteSpace(Path.GetDirectoryName(path)) && !Directory.Exists(Path.GetDirectoryName(path)))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
             }
@@ -348,7 +363,7 @@ namespace JsonLogger
 
             if (AutoSave)
             {
-                SaveChanges();
+                SaveChangesAsync();
             }
         }
 
