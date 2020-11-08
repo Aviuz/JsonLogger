@@ -2,14 +2,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>JsonLogger</id>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
     <authors>Aviuz</authors>
     <owners>Aviuz</owners>
     <projectUrl>http://github.com/Aviuz/JsonLogger</projectUrl>
     <license type="expression">MIT</license>
     <!-- The icon is used in Visual Studio's package manager UI -->
     <!--<iconUrl>http://github.com/Aviuz/JsonLogger</iconUrl>-->
-    <releaseNotes>added failover behaviour for unserializable objects</releaseNotes>
+    <releaseNotes>fixed some bugs</releaseNotes>
     <description>.NET Library for object logging to JSON files</description>
     <!-- Tags appear in the gallery and can be used for tag searches -->
     <tags>json logging log logs object-logging</tags>
