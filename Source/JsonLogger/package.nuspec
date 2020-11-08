@@ -6,6 +6,7 @@
     <authors>Aviuz</authors>
     <owners>Aviuz</owners>
     <projectUrl>http://github.com/Aviuz/JsonLogger</projectUrl>
+    <repository type="git" url="http://github.com/Aviuz/JsonLogger.git" branch="master" />
     <license type="expression">MIT</license>
     <!-- The icon is used in Visual Studio's package manager UI -->
     <!--<iconUrl>http://github.com/Aviuz/JsonLogger</iconUrl>-->
