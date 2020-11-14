@@ -1,11 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.271
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30709.132
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonLogger", "JsonLogger\JsonLogger.csproj", "{EC9651C6-ADA9-441D-8C97-A5C1246D21EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonLogger", "JsonLogger\JsonLogger.csproj", "{BF9053C8-3170-4D7F-9428-1FBB5E6B028B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonLoggerTest", "JsonLoggerTest\JsonLoggerTest.csproj", "{3366AFD6-B369-4290-A25A-36171762D602}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonLogger.UnitTest", "JsonLogger.UnitTest\JsonLogger.UnitTest.csproj", "{704F62D2-5F8A-4AF3-B80D-5CED292C77F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonLogger.EndTest", "JsonLogger.EndTest\JsonLogger.EndTest.csproj", "{095BB35D-75DF-4915-9451-D1BA88FC5EC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5FF24589-8827-4CA2-8FA8-A5500B9A879E}"
+	ProjectSection(SolutionItems) = preProject
+		..\changelog.md = ..\changelog.md
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +21,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EC9651C6-ADA9-441D-8C97-A5C1246D21EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC9651C6-ADA9-441D-8C97-A5C1246D21EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC9651C6-ADA9-441D-8C97-A5C1246D21EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC9651C6-ADA9-441D-8C97-A5C1246D21EE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3366AFD6-B369-4290-A25A-36171762D602}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3366AFD6-B369-4290-A25A-36171762D602}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3366AFD6-B369-4290-A25A-36171762D602}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3366AFD6-B369-4290-A25A-36171762D602}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF9053C8-3170-4D7F-9428-1FBB5E6B028B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF9053C8-3170-4D7F-9428-1FBB5E6B028B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF9053C8-3170-4D7F-9428-1FBB5E6B028B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF9053C8-3170-4D7F-9428-1FBB5E6B028B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{704F62D2-5F8A-4AF3-B80D-5CED292C77F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{704F62D2-5F8A-4AF3-B80D-5CED292C77F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{704F62D2-5F8A-4AF3-B80D-5CED292C77F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{704F62D2-5F8A-4AF3-B80D-5CED292C77F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{095BB35D-75DF-4915-9451-D1BA88FC5EC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{095BB35D-75DF-4915-9451-D1BA88FC5EC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{095BB35D-75DF-4915-9451-D1BA88FC5EC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{095BB35D-75DF-4915-9451-D1BA88FC5EC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
