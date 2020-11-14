@@ -343,4 +343,4 @@ Source/JsonLoggerTest/bin/Release/
 Source/JsonLoggerTest/obj/Release/
 
 *.cache
-/Package
+/Package/Library
