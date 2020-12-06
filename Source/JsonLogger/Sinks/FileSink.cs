@@ -14,7 +14,7 @@ namespace JsonLogger.Sinks
 
         public void Emit(string logEntry, LogLevel level)
         {
-            _ = fileController.AppendLogEntry(logEntry);
+            fileController.AppendLogEntry(logEntry);
         }
     }
 }

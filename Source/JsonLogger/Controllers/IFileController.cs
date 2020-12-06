@@ -5,7 +5,7 @@ namespace JsonLogger.Controllers
 {
     public interface IFileController
     {
-        Task AppendLogEntry(string serializedLog);
+        void AppendLogEntry(string serializedLog);
         Task TransferTo(string targetFilePath);
         string GetExtension();
         long GetSize();

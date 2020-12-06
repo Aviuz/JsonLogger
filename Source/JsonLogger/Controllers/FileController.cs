@@ -15,12 +15,12 @@ namespace JsonLogger.Controllers
             this.filePath = filePath;
         }
 
-        public async Task AppendLogEntry(string serializedLog)
+        public void AppendLogEntry(string serializedLog)
         {
             using (var fileStream = new FileStream(filePath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
             using (var textWriter = new StreamWriter(fileStream, Encoding.UTF8))
             {
-                await textWriter.WriteLineAsync(serializedLog);
+                textWriter.WriteLine(serializedLog);
             }
         }
 
