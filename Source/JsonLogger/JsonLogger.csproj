@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.0.0</Version>
+    <Version>2.0.1</Version>
     <Authors>Lew Szymański</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>http://github.com/Aviuz/JsonLogger</PackageProjectUrl>
@@ -16,13 +16,8 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>..\..\Package\JsonLogger.xml</DocumentationFile>
-    <OutputPath>..\..\Package\</OutputPath>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>../../Package/Library</OutputPath>
     <DocumentationFile>../../Package/Library/JsonLogger.xml</DocumentationFile>
+    <OutputPath>../../Package/Library</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
