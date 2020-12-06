@@ -1,10 +1,11 @@
-<p align="center">
+<p align="center" style="max-width: 400px;">
     <img src="https://raw.githubusercontent.com/Aviuz/JsonLogger/master/Design/Logo.png" alt="JsonLogger" />
 </p>
 
 ## Overview
 .NET Library for object logging to json files. This library provides interface to log text messages, .NET Objects and Exceptions to file in JSON format.  
-THis is very basic library with some additional features.
+This is very basic library with some additional features.
+You'd probably want to use [Serilog sinks](https://github.com/serilog/serilog-sinks-file), or [Serilog Compact Formatting extension library](https://github.com/serilog/serilog-formatting-compact) instead.
 
 ## Logging
 There are three ways for logging:
